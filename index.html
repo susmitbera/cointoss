@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Toss App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(2, 2, 2, 2);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 75vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .coin {
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+            background-color: #ffd700;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .coin.flipping {
+            animation: flip 1s ease-in-out;
+        }
+
+        @keyframes flip {
+            0% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(180deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+
+        .result.highlight {
+            color: #28a745;
+        }
+
+        @media (max-width: 600px) {
+            .coin {
+                width: 100px;
+                height: 100px;
+                font-size: 18px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .result {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Coin Toss App</h1>
+        <div class="coin" id="coin">?</div>
+        <button onclick="tossCoin()">Toss Coin</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function tossCoin() {
+            const coin = document.getElementById('coin');
+            const resultDiv = document.getElementById('result');
+            coin.classList.add('flipping');
+            resultDiv.textContent = ''; // Clear previous result
+
+            setTimeout(() => {
+                const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+                coin.textContent = result;
+                coin.classList.remove('flipping');
+                resultDiv.textContent = `Winner: ${result}`;
+                resultDiv.classList.add('highlight');
+
+                // Remove highlight after a short delay
+                setTimeout(() => {
+                    resultDiv.classList.remove('highlight');
+                }, 1000);
+            }, 1000); // Match the duration of the animation
+        }
+    </script>
+</body>
+</html>
